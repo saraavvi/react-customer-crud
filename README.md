@@ -12,10 +12,10 @@ This project is an individual asignment in the react-course as Nackademin. The i
 
 ## TECH
 
-React
-Javascript
-JSX
-API
-Styled Components 
+* React
+* Javascript
+* JSX
+* API
+* Styled Components 
 
 
