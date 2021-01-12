@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { CustomerListContext } from "../contexts/CustomerListContext";
 
 const StyledForm = styled.div`
   border: 1px solid black;
@@ -13,6 +14,7 @@ const StyledButton = styled.button`
 `;
 
 export default function LoginPage() {
+  const { adminData, setAdminData } = useContext(CustomerListContext);
   const history = useHistory();
   console.log(history);
   const [loginData, setLoginData] = useState({
@@ -45,8 +47,20 @@ export default function LoginPage() {
       .then((data) => {
         console.log(data.token);
         localStorage.setItem("userToken", data.token);
+        getUser();
         history.push("/home");
       });
+  }
+  function getUser() {
+    const token = localStorage.getItem("userToken");
+    fetch("https://frebi.willandskill.eu/api/v1/me", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setAdminData(data));
   }
   return (
     <div>

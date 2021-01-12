@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 export default function CustomerDetailPage(props) {
   console.log(props);
   const customerId = props.match.params.id;
   const [customerDetails, setCustomerDetails] = useState(null);
+  const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
+  const token = localStorage.getItem("userToken");
+  const history = useHistory();
 
   useEffect(() => {
-    const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
-    const token = localStorage.getItem("userToken");
     fetch(url, {
       headers: {
         "Content-Type": "application/json",
@@ -20,6 +22,16 @@ export default function CustomerDetailPage(props) {
         setCustomerDetails(data);
       });
   }, []);
+
+  function deleteCustomer() {
+    fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then(history.push("/home"));
+  }
 
   return (
     <div>
@@ -67,7 +79,7 @@ export default function CustomerDetailPage(props) {
             </tbody>
           </table>
           <button>Edit Customer</button>
-          <button>Delete Customer</button>
+          <button onClick={deleteCustomer}>Delete Customer</button>
         </>
       )}
     </div>
