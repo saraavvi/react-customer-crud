@@ -5,6 +5,7 @@ import CustomerListPage from "./Pages/CustomerListPage";
 import Navigation from "./Components/Navigation";
 import CustomerCreatePage from "./Pages/CustomerCreatePage";
 import { CustomerListContext } from "./contexts/CustomerListContext";
+import CustomerDetailPage from "./Pages/CustomerDetailPage";
 
 function App() {
   const [customerList, setCustomerList] = useState([]);
@@ -18,6 +19,7 @@ function App() {
             value={{ customerList, setCustomerList, formData, setFormData }}
           >
             <Switch>
+              <Route path="/home/:id" component={CustomerDetailPage} />
               <Route path="/login">
                 <LoginPage />
               </Route>
