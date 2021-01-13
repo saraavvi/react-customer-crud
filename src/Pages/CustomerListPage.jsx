@@ -43,7 +43,6 @@ export default function CustomerListPage() {
           {customerList && (
             <tbody>
               {customerList.map((item) => {
-                // const data = { id: item.id, name: item.name, email: item.email };
                 return <CustomerListItem key={item.id} item={item} />;
               })}
             </tbody>

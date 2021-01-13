@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import CustomerListPage from "./Pages/CustomerListPage";
-import Navigation from "./Components/Navigation";
+// import Navigation from "./Components/Navigation";
 import CustomerCreatePage from "./Pages/CustomerCreatePage";
 import { CustomerListContext } from "./contexts/CustomerListContext";
 import CustomerDetailPage from "./Pages/CustomerDetailPage";
@@ -13,7 +13,6 @@ function App() {
   const [customerList, setCustomerList] = useState([]);
   const [formData, setFormData] = useState({});
   const [adminData, setAdminData] = useState(null);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <CustomerListContext.Provider
       value={{
@@ -31,7 +30,7 @@ function App() {
         </div>
         <div className="row">
           {/* <Navigation className="col-4 " /> */}
-          <div className="col-8">
+          <div className="col-12">
             <Switch>
               <Route path="/home/create">
                 <CustomerCreatePage />

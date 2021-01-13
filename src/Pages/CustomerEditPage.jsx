@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import InputField from "../Components/InputField";
 import { CustomerListContext } from "../contexts/CustomerListContext";
 import { useHistory, Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useHistory, Link } from "react-router-dom";
 export default function CustomerEditPage(props) {
   const history = useHistory();
   const { formData } = useContext(CustomerListContext);
-  //TODO: fixa så det går att mappa ut inpufields istället
+  //TODO: fixa så det går att mappa ut inpufields istället??
   const customerId = props.match.params.id;
   function handleOnSubmit(e) {
     e.preventDefault();
@@ -23,7 +23,7 @@ export default function CustomerEditPage(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        history.push("/home");
+        history.push(`/home/${customerId}`);
       });
   }
   console.log(history);
@@ -32,7 +32,6 @@ export default function CustomerEditPage(props) {
       <h2>Edit Customer</h2>
       {formData && (
         <>
-          {/* {console.log(customerDetails.name)} */}
           <form onSubmit={handleOnSubmit}>
             <InputField
               value={formData.name}

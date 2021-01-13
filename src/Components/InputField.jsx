@@ -8,7 +8,7 @@ export default function InputField({ name, label, type, value }) {
       <label>{label}</label>
       <input
         type={type || "text"}
-        value={value || ""}
+        value={value}
         name={name}
         onChange={(e) => {
           setFormData({ ...formData, [e.target.name]: e.target.value });

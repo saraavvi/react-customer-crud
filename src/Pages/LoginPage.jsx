@@ -2,19 +2,49 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { CustomerListContext } from "../contexts/CustomerListContext";
-
-const StyledForm = styled.div`
-  border: 1px solid black;
+const StyledContainer = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+`;
+const StyledBox = styled.div`
+  background-color: white;
+  border-radius: 3px;
   width: 300px;
   height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 20px;
+  text-align: center;
+`;
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
 `;
 
 const StyledButton = styled.button`
   display: block;
+  font-size: 1rem;
+  margin: 20px 5px 5px 5px;
+  background-color: #4f4f68;
+  border: none;
+  border-radius: 2px;
+  padding: 15px;
+  color: white;
+`;
+
+const StyledField = styled.input`
+  padding: 5px;
+  margin: 5px;
+  border: none;
+  border-bottom: 1px solid lightgrey;
 `;
 
 export default function LoginPage() {
-  const { adminData, setAdminData } = useContext(CustomerListContext);
+  const { setAdminData } = useContext(CustomerListContext);
   const history = useHistory();
   console.log(history);
   const [loginData, setLoginData] = useState({
@@ -45,7 +75,6 @@ export default function LoginPage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.token);
         localStorage.setItem("userToken", data.token);
         getUser();
         history.push("/home");
@@ -62,36 +91,31 @@ export default function LoginPage() {
       .then((response) => response.json())
       .then((data) => {
         setAdminData(data);
-        // setIsLoggedIn(true)
-        const admin = JSON.stringify(data);
-        localStorage.setItem("userData", admin);
       });
   }
   return (
-    <div>
-      <StyledForm>
-        <h1>LOGIN</h1>
+    <StyledContainer>
+      <StyledBox>
+        <h1>Log in</h1>
 
-        <form onSubmit={handleOnSubmit}>
-          {/* <label>Email</label> */}
-
-          <input
+        <StyledForm onSubmit={handleOnSubmit}>
+          <StyledField
             value={loginData.email}
             onChange={handleOnChange}
             name="email"
-            placeholder="email"
-          ></input>
+            placeholder="Email address"
+          ></StyledField>
 
-          <input
+          <StyledField
             value={loginData.password}
             onChange={handleOnChange}
             name="password"
-            placeholder="password"
-          ></input>
+            placeholder="Password"
+          ></StyledField>
 
-          <StyledButton type="submit">Log in</StyledButton>
-        </form>
-      </StyledForm>
-    </div>
+          <StyledButton type="submit">LOG IN</StyledButton>
+        </StyledForm>
+      </StyledBox>
+    </StyledContainer>
   );
 }
