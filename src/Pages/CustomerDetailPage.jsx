@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { CustomerListContext } from "../contexts/CustomerListContext";
 
 export default function CustomerDetailPage(props) {
   console.log(props);
+  const {
+    customerDetails,
+    setCustomerDetails,
+    formData,
+    setFormData,
+  } = useContext(CustomerListContext);
+
   const customerId = props.match.params.id;
-  const [customerDetails, setCustomerDetails] = useState(null);
   const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
   const token = localStorage.getItem("userToken");
   const history = useHistory();
@@ -19,7 +27,7 @@ export default function CustomerDetailPage(props) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setCustomerDetails(data);
+        setFormData(data);
       });
   }, []);
 
@@ -32,56 +40,62 @@ export default function CustomerDetailPage(props) {
       },
     }).then(history.push("/home"));
   }
+  //   function editCustomer() {
+  //     setFormData(customerDetails);
+  //   }
 
   return (
     <div>
       <h1>Customer Detail Page</h1>
-      {customerDetails && (
+      {formData && (
         <>
           <table>
             <tbody>
               <tr>
                 <td>Name</td>
-                <td>{customerDetails.name}</td>
+                <td>{formData.name}</td>
               </tr>
               <tr>
                 <td>Email</td>
-                <td>{customerDetails.email}</td>
+                <td>{formData.email}</td>
               </tr>
               <tr>
                 <td>Organisation Number</td>
-                <td>{customerDetails.organisationNr}</td>
+                <td>{formData.organisationNr}</td>
               </tr>
               <tr>
                 <td>Payment Term</td>
-                <td>{customerDetails.paymentTerm}</td>
+                <td>{formData.paymentTerm}</td>
               </tr>
               <tr>
                 <td>Phone Number</td>
-                <td>{customerDetails.phoneNumber}</td>
+                <td>{formData.phoneNumber}</td>
               </tr>
               <tr>
                 <td>Reference Number</td>
-                <td>{customerDetails.reference}</td>
+                <td>{formData.reference}</td>
               </tr>
               <tr>
                 <td>VAT Number</td>
-                <td>{customerDetails.vatNr}</td>
+                <td>{formData.vatNr}</td>
               </tr>
               <tr>
                 <td>Email</td>
-                <td>{customerDetails.email}</td>
+                <td>{formData.email}</td>
               </tr>
               <tr>
                 <td>Website</td>
-                <td>{customerDetails.website}</td>
+                <td>{formData.website}</td>
               </tr>
             </tbody>
           </table>
-          <button>Edit Customer</button>
+          <Link to={`/home/${customerId}/edit`}>
+            <button>Edit Customer</button>
+          </Link>
           <button onClick={deleteCustomer}>Delete Customer</button>
         </>
       )}
     </div>
   );
 }
+//editknappen är en länk som skickat med props customerdetails till editpage

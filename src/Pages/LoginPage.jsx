@@ -14,7 +14,9 @@ const StyledButton = styled.button`
 `;
 
 export default function LoginPage() {
-  const { adminData, setAdminData } = useContext(CustomerListContext);
+  const { adminData, setAdminData, isLoggedIn, setIsLoggedIn } = useContext(
+    CustomerListContext
+  );
   const history = useHistory();
   console.log(history);
   const [loginData, setLoginData] = useState({
@@ -60,7 +62,12 @@ export default function LoginPage() {
       },
     })
       .then((response) => response.json())
-      .then((data) => setAdminData(data));
+      .then((data) => {
+        // setAdminData(data);
+        // setIsLoggedIn(true)
+        const admin = JSON.stringify(data);
+        localStorage.setItem("userData", admin);
+      });
   }
   return (
     <div>

@@ -10,13 +10,33 @@ const StyledHeading = styled.div`
 `;
 
 export default function Header() {
-  const { adminData, setAdminData } = useContext(CustomerListContext);
+  const { adminData, setAdminData, isLoggedIn } = useContext(
+    CustomerListContext
+  );
   console.log(adminData);
+  console.log(isLoggedIn);
+  let admin = null;
+  if (localStorage.getItem("userData") !== null) {
+    admin = JSON.parse(localStorage.getItem("userData"));
+    console.log(admin);
+  }
+
   return (
     <StyledHeading>
       <div>
-        Logged in as: {adminData.firstName} {adminData.lastName},{" "}
-        {adminData.email}{" "}
+        {/* {adminData && (
+          <p>
+            {adminData.firstName} {adminData.lastName}, {adminData.email}
+          </p>
+        )} */}
+        {/* <p>
+          {admin.firstName} {admin.lastName}, {admin.email}
+        </p> */}
+        {admin && (
+          <p>
+            {admin.firstName} {admin.lastName}, {admin.email}
+          </p>
+        )}
       </div>
       <div>
         <button>Log Out</button>

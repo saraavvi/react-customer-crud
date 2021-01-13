@@ -7,11 +7,13 @@ import CustomerCreatePage from "./Pages/CustomerCreatePage";
 import { CustomerListContext } from "./contexts/CustomerListContext";
 import CustomerDetailPage from "./Pages/CustomerDetailPage";
 import Header from "./Components/Header";
+import CustomerEditPage from "./Pages/CustomerEditPage";
 
 function App() {
   const [customerList, setCustomerList] = useState([]);
   const [formData, setFormData] = useState({});
   const [adminData, setAdminData] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <CustomerListContext.Provider
       value={{
@@ -21,6 +23,8 @@ function App() {
         setFormData,
         adminData,
         setAdminData,
+        isLoggedIn,
+        setIsLoggedIn,
       }}
     >
       <div className="container-fluid ml-0">
@@ -31,15 +35,20 @@ function App() {
           <Navigation className="col-4 " />
           <div className="col-8">
             <Switch>
-              <Route path="/login">
-                <LoginPage />
-              </Route>
               <Route path="/home/create">
                 <CustomerCreatePage />
               </Route>
+
+              <Route path="/home/:id/edit" component={CustomerEditPage} />
+
               <Route path="/home/:id" component={CustomerDetailPage} />
+
               <Route path="/home">
                 <CustomerListPage />
+              </Route>
+
+              <Route path="/">
+                <LoginPage />
               </Route>
             </Switch>
           </div>

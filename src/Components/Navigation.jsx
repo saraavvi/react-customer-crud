@@ -17,7 +17,7 @@ const NavLink = styled(Link)`
 export default function Navigation() {
   return (
     <Navbar>
-      <NavLink to="/login">Login</NavLink>
+      <NavLink to="/">Login</NavLink>
       <NavLink to="/home">Customers</NavLink>
       <NavLink to="/home/create">Create</NavLink>
     </Navbar>
