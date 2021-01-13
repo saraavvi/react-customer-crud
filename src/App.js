@@ -12,8 +12,8 @@ import CustomerEditPage from "./Pages/CustomerEditPage";
 function App() {
   const [customerList, setCustomerList] = useState([]);
   const [formData, setFormData] = useState({});
-  const [adminData, setAdminData] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [adminData, setAdminData] = useState(null);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <CustomerListContext.Provider
       value={{
@@ -23,8 +23,6 @@ function App() {
         setFormData,
         adminData,
         setAdminData,
-        isLoggedIn,
-        setIsLoggedIn,
       }}
     >
       <div className="container-fluid ml-0">
@@ -32,7 +30,7 @@ function App() {
           <Header className="col-12" />
         </div>
         <div className="row">
-          <Navigation className="col-4 " />
+          {/* <Navigation className="col-4 " /> */}
           <div className="col-8">
             <Switch>
               <Route path="/home/create">

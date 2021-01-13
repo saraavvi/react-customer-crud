@@ -93,6 +93,7 @@ export default function CustomerDetailPage(props) {
             <button>Edit Customer</button>
           </Link>
           <button onClick={deleteCustomer}>Delete Customer</button>
+          <Link to="/home">Back to list</Link>
         </>
       )}
     </div>

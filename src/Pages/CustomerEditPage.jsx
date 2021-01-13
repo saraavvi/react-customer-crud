@@ -1,15 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import InputField from "../Components/InputField";
 import { CustomerListContext } from "../contexts/CustomerListContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 export default function CustomerEditPage(props) {
   const history = useHistory();
   const { formData } = useContext(CustomerListContext);
   //TODO: fixa så det går att mappa ut inpufields istället
+  const customerId = props.match.params.id;
   function handleOnSubmit(e) {
     e.preventDefault();
-    const customerId = props.match.params.id;
+
     const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
     const token = localStorage.getItem("userToken");
     fetch(url, {
@@ -25,6 +26,7 @@ export default function CustomerEditPage(props) {
         history.push("/home");
       });
   }
+  console.log(history);
   return (
     <div>
       <h2>Edit Customer</h2>
@@ -78,7 +80,10 @@ export default function CustomerEditPage(props) {
               type="url"
             />
 
-            <button type="submit">Edit</button>
+            <button type="submit">Update</button>
+            <Link to={`/home/${customerId}`}>
+              <button>Cancel</button>
+            </Link>
           </form>
         </>
       )}

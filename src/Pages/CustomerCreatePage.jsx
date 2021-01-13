@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import InputField from "../Components/InputField";
 import { CustomerListContext } from "../contexts/CustomerListContext";
 
@@ -27,22 +27,29 @@ export default function CustomerCreatePage() {
   return (
     <div>
       <h2>Create a new customer</h2>
-      <form onSubmit={handleOnSubmit}>
-        <InputField name="name" label="Customer Name" />
-        <InputField name="email" label="Customer Email" type="email" />
-        <InputField
-          name="organisationNr"
-          label="Organisation Number"
-          type="number"
-        />
-        <InputField name="paymentTerm" label="Payment Term" type="number" />
-        <InputField name="phoneNumber" label="Phone Number" type="tel" />
-        <InputField name="reference" label="Reference" />
-        <InputField name="vatNr" label="Vat Number" />
-        <InputField name="website" label="Website" type="url" />
+      {localStorage.getItem("userToken") !== null ? (
+        <form onSubmit={handleOnSubmit}>
+          <InputField name="name" label="Customer Name" />
+          <InputField name="email" label="Customer Email" type="email" />
+          <InputField
+            name="organisationNr"
+            label="Organisation Number"
+            type="number"
+          />
+          <InputField name="paymentTerm" label="Payment Term" type="number" />
+          <InputField name="phoneNumber" label="Phone Number" type="tel" />
+          <InputField name="reference" label="Reference" />
+          <InputField name="vatNr" label="Vat Number" />
+          <InputField name="website" label="Website" type="url" />
 
-        <button type="submit">Create Customer</button>
-      </form>
+          <button type="submit">Create Customer</button>
+          <Link to="/home">
+            <button>Cancel</button>
+          </Link>
+        </form>
+      ) : (
+        <p>You need to be logged in</p>
+      )}
     </div>
   );
 }
