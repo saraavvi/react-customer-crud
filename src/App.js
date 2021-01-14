@@ -8,6 +8,7 @@ import { CustomerListContext } from "./contexts/CustomerListContext";
 import CustomerDetailPage from "./Pages/CustomerDetailPage";
 import Header from "./Components/Header";
 import CustomerEditPage from "./Pages/CustomerEditPage";
+import "boxicons";
 
 function App() {
   const [customerList, setCustomerList] = useState([]);

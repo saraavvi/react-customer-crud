@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import InputField from "../Components/InputField";
 import { CustomerListContext } from "../contexts/CustomerListContext";
 import { useHistory, Link } from "react-router-dom";
+import { StyledForm } from "../Styles/FormStyles";
+import { PrimaryButton, CancelButton } from "../Styles/ButtonStyles";
 
 export default function CustomerEditPage(props) {
   const history = useHistory();
@@ -29,10 +31,10 @@ export default function CustomerEditPage(props) {
   console.log(history);
   return (
     <div>
-      <h2>Edit Customer</h2>
       {formData && (
         <>
-          <form onSubmit={handleOnSubmit}>
+          <StyledForm onSubmit={handleOnSubmit}>
+            <h1>Edit Customer</h1>
             <InputField
               value={formData.name}
               name="name"
@@ -79,11 +81,11 @@ export default function CustomerEditPage(props) {
               type="url"
             />
 
-            <button type="submit">Update</button>
+            <PrimaryButton type="submit">Update</PrimaryButton>
             <Link to={`/home/${customerId}`}>
-              <button>Cancel</button>
+              <CancelButton>Cancel</CancelButton>
             </Link>
-          </form>
+          </StyledForm>
         </>
       )}
     </div>

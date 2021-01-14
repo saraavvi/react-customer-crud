@@ -72,7 +72,7 @@ export default function CustomerDetailPage(props) {
                 <td>{formData.phoneNumber}</td>
               </tr>
               <tr>
-                <td>Reference Number</td>
+                <td>Reference</td>
                 <td>{formData.reference}</td>
               </tr>
               <tr>

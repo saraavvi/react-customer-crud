@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { CustomerListContext } from "../contexts/CustomerListContext";
+import { LargeButton } from "../Styles/ButtonStyles";
 const StyledContainer = styled.div`
   height: 100%;
   display: flex;
@@ -20,21 +21,21 @@ const StyledBox = styled.div`
   padding: 20px;
   text-align: center;
 `;
-const StyledForm = styled.form`
+const StyledLoginForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-const StyledButton = styled.button`
-  display: block;
-  font-size: 1rem;
-  margin: 20px 5px 5px 5px;
-  background-color: #4f4f68;
-  border: none;
-  border-radius: 2px;
-  padding: 15px;
-  color: white;
-`;
+// const StyledButton = styled.button`
+//   display: block;
+//   font-size: 1rem;
+//   margin: 20px 5px 5px 5px;
+//   background-color: #4b478e;
+//   border: none;
+//   border-radius: 2px;
+//   padding: 15px;
+//   color: white;
+// `;
 
 const StyledField = styled.input`
   padding: 5px;
@@ -98,7 +99,7 @@ export default function LoginPage() {
       <StyledBox>
         <h1>Log in</h1>
 
-        <StyledForm onSubmit={handleOnSubmit}>
+        <StyledLoginForm onSubmit={handleOnSubmit}>
           <StyledField
             value={loginData.email}
             onChange={handleOnChange}
@@ -112,9 +113,8 @@ export default function LoginPage() {
             name="password"
             placeholder="Password"
           ></StyledField>
-
-          <StyledButton type="submit">LOG IN</StyledButton>
-        </StyledForm>
+          <LargeButton type="submit">LOG IN</LargeButton>
+        </StyledLoginForm>
       </StyledBox>
     </StyledContainer>
   );

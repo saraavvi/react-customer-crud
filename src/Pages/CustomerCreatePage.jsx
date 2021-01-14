@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import InputField from "../Components/InputField";
 import { CustomerListContext } from "../contexts/CustomerListContext";
+import { StyledForm } from "../Styles/FormStyles";
+import { PrimaryButton, CancelButton } from "../Styles/ButtonStyles";
 
 export default function CustomerCreatePage() {
   const history = useHistory();
@@ -26,9 +28,9 @@ export default function CustomerCreatePage() {
   }
   return (
     <div>
-      <h2>Create a new customer</h2>
       {localStorage.getItem("userToken") !== null ? (
-        <form onSubmit={handleOnSubmit}>
+        <StyledForm onSubmit={handleOnSubmit}>
+          <h1>Create new customer</h1>
           <InputField name="name" label="Customer Name" />
           <InputField name="email" label="Customer Email" type="email" />
           <InputField
@@ -42,11 +44,11 @@ export default function CustomerCreatePage() {
           <InputField name="vatNr" label="Vat Number" />
           <InputField name="website" label="Website" type="url" />
 
-          <button type="submit">Create Customer</button>
+          <PrimaryButton type="submit">Create Customer</PrimaryButton>
           <Link to="/home">
-            <button>Cancel</button>
+            <CancelButton>Cancel</CancelButton>
           </Link>
-        </form>
+        </StyledForm>
       ) : (
         <p>You need to be logged in</p>
       )}

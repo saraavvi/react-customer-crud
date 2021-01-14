@@ -1,13 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function CustomerListItem({ item }) {
+  const history = useHistory();
+  function handleOnClick() {
+    history.push(`/home/${item.id}/`);
+  }
   return (
-    <tr>
-      <td>
-        <Link to={`/home/${item.id}/`}>{item.name}</Link>
-      </td>
+    <tr onClick={handleOnClick}>
+      <td>{item.name}</td>
       <td>{item.email}</td>
+      <td>{item.phoneNumber}</td>
     </tr>
   );
 }
