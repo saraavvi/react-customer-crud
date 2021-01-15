@@ -1,6 +1,9 @@
 html {
   height: 100vh;
 }
+html body a:hover {
+  text-decoration: none;
+}
 html body {
   background-color: #eceef0;
   height: 100vh;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import CustomerListPage from "./Pages/CustomerListPage";
@@ -11,18 +11,56 @@ import CustomerEditPage from "./Pages/CustomerEditPage";
 import "boxicons";
 
 function App() {
-  const [customerList, setCustomerList] = useState([]);
-  const [formData, setFormData] = useState({});
-  const [adminData, setAdminData] = useState(null);
+  const [customerList, setCustomerList] = useState(null);
+  const [currentCustomer, setCurrentCustomer] = useState(null);
+  const [userData, setUserData] = useState(null);
+
+  function getCustomers() {
+    const url = "https://frebi.willandskill.eu/api/v1/customers/";
+    const token = localStorage.getItem("userToken");
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setCustomerList(data.results);
+      });
+  }
+  function getUser() {
+    const token = localStorage.getItem("userToken");
+    fetch("https://frebi.willandskill.eu/api/v1/me", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setUserData(data);
+      });
+  }
+
+  // useEffect(() => {
+  //   if (localStorage.getItem("userToken")) {
+  //     getCustomers();
+  //   }
+  // }, []);
+
   return (
     <CustomerListContext.Provider
       value={{
         customerList,
         setCustomerList,
-        formData,
-        setFormData,
-        adminData,
-        setAdminData,
+        currentCustomer,
+        setCurrentCustomer,
+        userData,
+        setUserData,
+        getCustomers,
+        getUser,
       }}
     >
       <div className="container-fluid ml-0">

@@ -45,19 +45,16 @@ const StyledField = styled.input`
 `;
 
 export default function LoginPage() {
-  const { setAdminData } = useContext(CustomerListContext);
+  const { setUserData } = useContext(CustomerListContext);
   const history = useHistory();
-  console.log(history);
   const [loginData, setLoginData] = useState({
     email: "Sara.Viktorsson@yh.nackademin.se",
     password: "javascriptoramverk",
   });
 
   function handleOnChange(e) {
-    console.log(e.target.name, e.target.value);
     const newData = { ...loginData, [e.target.name]: e.target.value };
     setLoginData(newData);
-    console.log(loginData);
   }
 
   function handleOnSubmit(e) {
@@ -78,8 +75,11 @@ export default function LoginPage() {
       .then((data) => {
         localStorage.setItem("userToken", data.token);
         getUser();
-        history.push("/home");
-      });
+        if (data.token) history.push("/home");
+        else window.alert("invalid email or password");
+        // history.push("/home");
+      })
+      .catch((err) => console.error(err));
   }
   function getUser() {
     const token = localStorage.getItem("userToken");
@@ -91,7 +91,7 @@ export default function LoginPage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setAdminData(data);
+        setUserData(data);
       });
   }
   return (

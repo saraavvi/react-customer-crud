@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { CustomerListContext } from "../contexts/CustomerListContext";
 import { StyledInput } from "../Styles/FormStyles";
 
 export default function InputField({ name, label, type, value }) {
-  const { formData, setFormData } = useContext(CustomerListContext);
+  const { currentCustomer, setCurrentCustomer } = useContext(
+    CustomerListContext
+  );
+  function vatValidate() {}
+  useEffect(() => {
+    console.log(currentCustomer);
+  }, []);
   return (
+    //om name är vatNr ska fältet valideras
     <StyledInput>
       <label>{label}</label>
       <input
@@ -12,8 +19,13 @@ export default function InputField({ name, label, type, value }) {
         value={value}
         name={name}
         onChange={(e) => {
-          setFormData({ ...formData, [e.target.name]: e.target.value });
+          setCurrentCustomer({
+            ...currentCustomer,
+            [e.target.name]: e.target.value,
+          });
+          console.log(currentCustomer);
         }}
+        required
       />
     </StyledInput>
   );

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const PrimaryButton = styled.button`
-  margin-top: 5px;
-  display: block;
+  margin: 5px 2px;
+  //   display: block;
   background-color: #4b478e;
   border: none;
   border-radius: 2px;
@@ -21,4 +21,12 @@ const CancelButton = styled(PrimaryButton)`
   background-color: orange;
 `;
 
-export { LargeButton, PrimaryButton, CancelButton };
+const DeleteButton = styled(PrimaryButton)`
+  background-color: red;
+`;
+
+const EditButton = styled(PrimaryButton)`
+  background-color: seagreen;
+`;
+
+export { LargeButton, PrimaryButton, CancelButton, DeleteButton, EditButton };

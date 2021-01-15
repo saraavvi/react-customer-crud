@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { CustomerListContext } from "../contexts/CustomerListContext";
 import { useHistory } from "react-router-dom";
-import { PrimaryButton, CancelButton } from "../Styles/ButtonStyles";
+import { PrimaryButton } from "../Styles/ButtonStyles";
 
 const StyledHeading = styled.div`
   width: 100%;
@@ -14,39 +14,38 @@ const StyledHeading = styled.div`
   padding: 0 1rem;
   align-items: center;
 `;
-const AdminText = styled.div`
+const UserText = styled.div`
   font-size: 2rem;
 `;
 
 export default function Header() {
   const history = useHistory();
-  const { adminData, setAdminData } = useContext(CustomerListContext);
-  console.log(adminData);
+  const { userData, setUserData, getUser } = useContext(CustomerListContext);
 
   function logOut() {
     history.push("/");
     localStorage.removeItem("userToken");
-    setAdminData(null);
+    setUserData(null);
   }
+  // istället för att ksirva get me funktionen här igen, skicka med den ifrån login so prop
+  useEffect(() => {
+    if (userData === null) {
+      getUser();
+    }
+  }, []);
+
   //ändra så att:
   // vill kolla om det finns en GILTIG token och isåfall skriv ut adminuppgifter och logout button
   return (
     <StyledHeading>
-      <AdminText>Admin</AdminText>
-      {adminData && (
+      <UserText>CRUD</UserText>
+      {userData && (
         <>
           <div>
-            {adminData.firstName} {adminData.lastName}, {adminData.email}
+            {userData.firstName} {userData.lastName} {userData.email}
           </div>
           <div>
-            <PrimaryButton onClick={logOut}>
-              <box-icon
-                name="right-arrow-circle"
-                type="solid"
-                color="#fdfdfd"
-              ></box-icon>
-              Log Out
-            </PrimaryButton>
+            <PrimaryButton onClick={logOut}>Log Out</PrimaryButton>
           </div>
         </>
       )}

@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function CustomerListItem({ item }) {
   const history = useHistory();
+
   function handleOnClick() {
     history.push(`/home/${item.id}/`);
   }
