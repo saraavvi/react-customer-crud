@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const PrimaryButton = styled.button`
   margin: 5px 2px;
-  //   display: block;
   background-color: #4b478e;
   border: none;
   border-radius: 2px;
@@ -13,8 +12,7 @@ const PrimaryButton = styled.button`
 
 const LargeButton = styled(PrimaryButton)`
   margin: 20px 5px 5px 5px;
-  border: none;
-  padding: 15px;
+  padding: 20px;
 `;
 
 const CancelButton = styled(PrimaryButton)`

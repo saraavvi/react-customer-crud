@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useHistory, Link } from "react-router-dom";
 import InputField from "../Components/InputField";
 import { CustomerListContext } from "../contexts/CustomerListContext";
@@ -7,18 +7,12 @@ import { PrimaryButton, CancelButton } from "../Styles/ButtonStyles";
 
 export default function CustomerCreatePage() {
   const history = useHistory();
-  const {
-    currentCustomer,
-    setCustomerList,
-    customerList,
-    getCustomers,
-  } = useContext(CustomerListContext);
+  const { currentCustomer, getCustomers } = useContext(CustomerListContext);
 
   function handleOnSubmit(e) {
     e.preventDefault();
     const url = "https://frebi.willandskill.eu/api/v1/customers/";
     const token = localStorage.getItem("userToken");
-    //post new customer
     fetch(url, {
       method: "POST",
       body: JSON.stringify(currentCustomer),
@@ -29,12 +23,6 @@ export default function CustomerCreatePage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //det jag gör nu är att: lägga till data i backend.
-        //och spara samma datt i context.
-        // ska jag istället hämta all data från backend och spare DENNA i context istället?
-        // const newItem = [data];
-        // const newList = customerList.concat(newItem);
-        // setCustomerList(newList);
         getCustomers();
         history.push("/home");
       });

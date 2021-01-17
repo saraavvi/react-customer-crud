@@ -17,13 +17,6 @@ const StyledDetailTable = styled.table`
 `;
 
 const StyledTable = styled(StyledDetailTable)`
-  margin-top: 1rem;
-  border: 1px solid #eceef0;
-  width: 100%;
-  td {
-    padding: 0.7rem;
-    border: 1px solid #eceef0;
-  }
   tr:nth-child(odd) {
     background-color: #eceef048;
   }

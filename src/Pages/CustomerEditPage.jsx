@@ -7,19 +7,12 @@ import { PrimaryButton, CancelButton } from "../Styles/ButtonStyles";
 
 export default function CustomerEditPage(props) {
   const history = useHistory();
-  const {
-    currentCustomer,
-    customerList,
-    setCustomerList,
-    getCustomers,
-  } = useContext(CustomerListContext);
-  //TODO: fixa så det går att mappa ut inpufields istället??
-  const customerId = props.match.params.id;
-  function handleOnSubmit(e) {
-    //här behövs customerList uppdateras med den nya datan för att vara uppdaterad i customer list
-    // ta detta item och ändra på den i arrayen??
-    e.preventDefault();
+  const { currentCustomer, getCustomers } = useContext(CustomerListContext);
 
+  const customerId = props.match.params.id;
+
+  function handleOnSubmit(e) {
+    e.preventDefault();
     const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
     const token = localStorage.getItem("userToken");
     fetch(url, {
@@ -32,28 +25,11 @@ export default function CustomerEditPage(props) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        console.log(customerList);
-        //denna data ska läggas in på rätt plats i customerList för att den ska synas på listpage.
-        // updateListItem(data);
         getCustomers();
-        history.push(`/home/${customerId}`);
+        history.push("/home");
       });
   }
 
-  //   function updateListItem(data) {
-  //     const newList = customerList.map((item) => {
-  //       console.log(data);
-  //       console.log(item.id);
-  //       if (item.id == customerId) {
-  //         return data;
-  //       } else {
-  //         return item;
-  //       }
-  //     });
-  //     console.log("new list:", newList);
-  //     setCustomerList(newList);
-  //   }
   return (
     <div>
       {currentCustomer && (

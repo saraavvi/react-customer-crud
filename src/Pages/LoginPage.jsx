@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { CustomerListContext } from "../contexts/CustomerListContext";
 import { LargeButton } from "../Styles/ButtonStyles";
+
 const StyledContainer = styled.div`
   height: 100%;
   display: flex;
@@ -26,17 +27,6 @@ const StyledLoginForm = styled.form`
   flex-direction: column;
 `;
 
-// const StyledButton = styled.button`
-//   display: block;
-//   font-size: 1rem;
-//   margin: 20px 5px 5px 5px;
-//   background-color: #4b478e;
-//   border: none;
-//   border-radius: 2px;
-//   padding: 15px;
-//   color: white;
-// `;
-
 const StyledField = styled.input`
   padding: 5px;
   margin: 5px;
@@ -45,7 +35,7 @@ const StyledField = styled.input`
 `;
 
 export default function LoginPage() {
-  const { setUserData } = useContext(CustomerListContext);
+  const { getUser } = useContext(CustomerListContext);
   const history = useHistory();
   const [loginData, setLoginData] = useState({
     email: "Sara.Viktorsson@yh.nackademin.se",
@@ -77,22 +67,8 @@ export default function LoginPage() {
         getUser();
         if (data.token) history.push("/home");
         else window.alert("invalid email or password");
-        // history.push("/home");
       })
       .catch((err) => console.error(err));
-  }
-  function getUser() {
-    const token = localStorage.getItem("userToken");
-    fetch("https://frebi.willandskill.eu/api/v1/me", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setUserData(data);
-      });
   }
   return (
     <StyledContainer>

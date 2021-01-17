@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage";
 import CustomerListPage from "./Pages/CustomerListPage";
-// import Navigation from "./Components/Navigation";
 import CustomerCreatePage from "./Pages/CustomerCreatePage";
 import { CustomerListContext } from "./contexts/CustomerListContext";
 import CustomerDetailPage from "./Pages/CustomerDetailPage";
@@ -44,12 +43,6 @@ function App() {
       });
   }
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("userToken")) {
-  //     getCustomers();
-  //   }
-  // }, []);
-
   return (
     <CustomerListContext.Provider
       value={{
@@ -68,7 +61,6 @@ function App() {
           <Header className="col-12" />
         </div>
         <div className="row">
-          {/* <Navigation className="col-4 " /> */}
           <div className="col-12">
             <Switch>
               <Route path="/home/create">

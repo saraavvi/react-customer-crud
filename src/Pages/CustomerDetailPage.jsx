@@ -19,54 +19,36 @@ export default function CustomerDetailPage(props) {
     getCustomers,
   } = useContext(CustomerListContext);
 
-  const customerId = props.match.params.id;
-
-  //med hjälp av id kan man loopa igenom customlist array och matcha mot rätt id där?
-  //så behöver man inte fetcha igen.
-
-  //   useEffect(() => {
-  //     console.log("detailpage lodaded", currentCustomer);
-  //     const customerDetails = customerList.filter((item) => {
-  //       return item.id == customerId;
-  //     });
-
-  //     setCurrentCustomer(customerDetails[0]);
-  //   }, []);
-
   const history = useHistory();
 
-  //if current customer is not in context, fetch the current customer from backend
-  useEffect(() => {
-    // if (currentCustomer === null) {
-    console.log("fetch");
-    fetch(url, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setCurrentCustomer(data);
-      });
-    // } else {
-    //   console.log("current customer:", currentCustomer);
-    //   console.log("customer list:", customerList);
-    //   const customerDetails = customerList.filter((item) => {
-    //     return item.id == customerId;
-    //   });
-    //   console.log(customerDetails[0]);
-    //   setCurrentCustomer(customerDetails[0]);
-    // }
-  }, []);
-
+  const customerId = props.match.params.id;
   const url = `https://frebi.willandskill.eu/api/v1/customers/${customerId}/`;
   const token = localStorage.getItem("userToken");
 
-  //ta bort den deletade från customerList också
+  //if current customer is not in context -> fetch it
+  useEffect(() => {
+    if (currentCustomer === null) {
+      console.log("fetch");
+      fetch(url, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setCurrentCustomer(data);
+        });
+    } else {
+      const customerDetails = customerList.filter((item) => {
+        return item.id == customerId;
+      });
+      console.log(customerDetails[0]);
+      setCurrentCustomer(customerDetails[0]);
+    }
+  }, []);
+
   function deleteCustomer() {
-    // updateList();
     fetch(url, {
       method: "DELETE",
       headers: {
@@ -78,15 +60,6 @@ export default function CustomerDetailPage(props) {
       getCustomers();
     });
   }
-
-  //   function updateList() {
-  //     const newList = customerList.filter((item) => {
-  //       return item.id != customerId;
-  //     });
-  //     console.log(newList);
-  //     setCustomerList(newList);
-  //   }
-  // här skiver jag ut när jag har formdata MEN det är gammal formdata, skriv ut när NY formdata hämtats
   return (
     <div>
       <h1>Customer details</h1>
@@ -144,4 +117,3 @@ export default function CustomerDetailPage(props) {
     </div>
   );
 }
-//editknappen är en länk som skickat med props customerdetails till editpage

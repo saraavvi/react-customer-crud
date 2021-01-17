@@ -27,15 +27,13 @@ export default function Header() {
     localStorage.removeItem("userToken");
     setUserData(null);
   }
-  // istället för att ksirva get me funktionen här igen, skicka med den ifrån login so prop
+  // if user not in context -> fetch it
   useEffect(() => {
     if (userData === null) {
       getUser();
     }
   }, []);
 
-  //ändra så att:
-  // vill kolla om det finns en GILTIG token och isåfall skriv ut adminuppgifter och logout button
   return (
     <StyledHeading>
       <UserText>CRUD</UserText>
